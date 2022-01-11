@@ -47,31 +47,31 @@ void print_signal_to_file(std::ofstream& ofs, const Signal& signal) {
         ofs << "type: raw" << std::endl;
         ofs << "frequency: " << signal.frequency << std::endl;
         ofs << "duty_cycle: " << signal.duty_cycle << std::endl;
-        ofs << "data: ";
+        ofs << "data:";
         for(const auto& sample : signal.samples) {
-            ofs << std::dec << sample << ' ';
+            ofs << ' ' << std::dec << sample;
         }
         ofs << std::endl;
     } else {
         ofs << "type: parsed" << std::endl;
         ofs << "protocol: " << signal.protocol << std::endl;
-        ofs << "address: ";
+        ofs << "address:";
         const uint8_t* ptr = reinterpret_cast<const uint8_t*>(&signal.address);
         for (int i = 0; i < sizeof(uint32_t); ++i) {
             std::stringstream ss;
             ss << std::setfill ('0') << std::setw(2) << std::hex << int(ptr[i]);
             std::string str = ss.str();
-            ofs << str << ' ';
+            ofs << ' ' << str;
         }
         ofs << std::endl;
 
-        ofs << "command: ";
+        ofs << "command:";
         ptr = reinterpret_cast<const uint8_t*>(&signal.command);
         for (int i = 0; i < sizeof(uint32_t); ++i) {
             std::stringstream ss;
             ss << std::setfill ('0') << std::setw(2) << std::hex << int(ptr[i]);
             std::string str = ss.str();
-            ofs << str << ' ';
+            ofs << ' ' << str;
         }
         ofs << std::endl;
     }
